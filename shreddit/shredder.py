@@ -124,9 +124,9 @@ class Shredder(object):
         msg = "/r/{}/ #{} ({}) with: {}".format(comment.subreddit, comment.id, short_text, replacement_text)
 
         self._logger.debug("Editing and deleting {msg}".format(msg=msg))
-        self._logger.info("Waiting {} seconds and continuing...".format(self._batch_cooldown))
+        # self._logger.info("Waiting {} seconds and continuing...".format(self._batch_cooldown))
         if not self._trial_run:
-            time.sleep(self._batch_cooldown)
+            # time.sleep(self._batch_cooldown)
             comment.edit(replacement_text)
 
     def _remove(self, item):
