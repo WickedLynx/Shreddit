@@ -67,7 +67,7 @@ class Shredder(object):
     def shred(self):
         deleted = self._remove_things(self._build_iterator())
         self._logger.info("Finished deleting {} items. ".format(deleted))
-        if deleted >= 1:
+        if deleted >= 1000:
             # This user has more than 1000 items to handle, which angers the gods of the Reddit API. So chill for a
             # while and do it again.
             self._logger.info("Waiting {} seconds and continuing...".format(self._batch_cooldown))
@@ -124,6 +124,8 @@ class Shredder(object):
         msg = "/r/{}/ #{} ({}) with: {}".format(comment.subreddit, comment.id, short_text, replacement_text)
 
         self._logger.debug("Editing and deleting {msg}".format(msg=msg))
+        self._logger.info("Waiting {} seconds and continuing...".format(self._batch_cooldown))
+            time.sleep(self._batch_cooldown)
         if not self._trial_run:
             comment.edit(replacement_text)
 
